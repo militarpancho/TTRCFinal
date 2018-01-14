@@ -16,10 +16,24 @@ feature:install odl-dlux-all
 # Run mininet topology 
 
 '''
-sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote,ip=172.20.0.2 --switch ovsk
+$ docker exec -ti opendaylight mininet
+
+mininet> sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote,ip=172.20.0.2 --switch ovsk
 '''
+
+
+#Run VTNs
+
+'''
+$ python main.py
+'''
+# Verificate creation
+'''
+mininet> pingall
+'''
+*** This could be sloooow
 
 
 # Dudas
 
-- Cada red vtn tiene un vBridge o varios.
+- Must each vtn have one or more vBridges?
