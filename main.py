@@ -34,5 +34,5 @@ def main():
 	odl.create_vtnPortMap("sw33-eth2", "openflow:33", "if6", "vbr2", "square")
 	odl.create_vtnPortMap("sw36-eth2", "openflow:36", "if7", "vbr2", "square")
 
-if __main__ == "__name__":
+if __name__ == "__main__":
 	main()

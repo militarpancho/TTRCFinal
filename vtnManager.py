@@ -6,7 +6,7 @@ import json
 class ODLClient(object):
     def __init__(self, endpoint, credentials=('admin', 'admin')):
         if endpoint[-1] == '/':
-        endpoint = endpoint[0:-1]
+            endpoint = endpoint[0:-1]
         self.endpoint = '{}{}'.format(endpoint, '/restconf')
         self.credentials = credentials
         self.auth = (credentials[0], credentials[1])
