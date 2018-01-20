@@ -1,5 +1,6 @@
 # Install neccesary features in opendaylight
-'''
+
+```bash
 $ docker exec -ti opendaylight bash
 $ cd distribution-...
 $ bin/client
@@ -11,29 +12,32 @@ feature:install odl-mdsal-apidocs
 feature:install odl-vtn-manager
 feature:install odl-dlux-core
 feature:install odl-dlux-all
+```
 
-'''
 # Run mininet topology 
 
-'''
-$ docker exec -ti opendaylight mininet
+```bash
+$ docker exec -ti mininet bash
 
 mininet> sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote,ip=172.20.0.2 --switch ovsk
-'''
+```
 
 
 #Run VTNs
 
-'''
+```bash
 $ python main.py
-'''
+```
 # Verificate creation
-'''
+```bash
 mininet> pingall
-'''
+```
 *** This could be sloooow
 
 
 # Dudas
 
 - Must each vtn have one or more vBridges?
+- Net created with mininet difers with the one provided in the statement
+
+
