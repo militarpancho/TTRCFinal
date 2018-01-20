@@ -17,7 +17,7 @@ feature:install odl-dlux-all
 # Run mininet topology 
 
 ```bash
-$ docker exec -ti opendaylight mininet
+$ docker exec -ti mininet bash
 
 mininet> sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote,ip=172.20.0.2 --switch ovsk
 ```
