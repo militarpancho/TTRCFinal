@@ -9,7 +9,7 @@ services:
      - "8181:8181"
      - "8101:8101"
   mininet:
-    image: registry.cluster.gsi.dit.upm.es/sdn/network-simulator/mininet
+    image: militarpancho1/mininet
     container_name: mininet
     depends_on:
      - opendaylight

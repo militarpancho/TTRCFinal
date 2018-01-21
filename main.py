@@ -2,7 +2,7 @@ from vtnManager import ODLClient
 
 
 def main():
-	#Create Hexagon VTN net (h7, h11 y h27)
+	#Create Hexagon VTN net (hhs)
 	odl = ODLClient("http://localhost:8181")
 	odl.create_vtn("hexagon")
 	odl.create_vBridge("vbr1", "hexagon")
@@ -14,7 +14,7 @@ def main():
 	odl.create_vtnPortMap("sw27-eth2", "openflow:27", "if3", "vbr1", "hexagon")
 
 
-	#Create Square VTN net (h5,h8,h2,h18,h27,h30,h34)
+	#Create Square VTN net (hss)
 	odl = ODLClient("http://localhost:8181")
 	odl.create_vtn("square")
 	odl.create_vBridge("vbr2", "square")
@@ -34,7 +34,7 @@ def main():
 	odl.create_vtnPortMap("sw33-eth2", "openflow:33", "if6", "vbr2", "square")
 	odl.create_vtnPortMap("sw36-eth3", "openflow:36", "if7", "vbr2", "square")
 
-	#Create Square VTN net (h5,h8,h2,h18,h27,h30,h34)
+	#Create Triangle VTN net (hts)
 	odl = ODLClient("http://localhost:8181")
 	odl.create_vtn("triangle")
 	odl.create_vBridge("vbr3", "triangle")
@@ -65,6 +65,10 @@ def main():
 	odl.create_vtnPortMap("sw31-eth3", "openflow:31", "if11", "vbr3", "triangle")
 	odl.create_vtnPortMap("sw33-eth3", "openflow:33", "if12", "vbr3", "triangle")
 	odl.create_vtnPortMap("sw36-eth2", "openflow:36", "if13", "vbr3", "triangle")
+        
+        print("VTNs created and configured")
+        
+
 
 if __name__ == "__main__":
 	main()
