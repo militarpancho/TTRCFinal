@@ -19,7 +19,7 @@ feature:install odl-dlux-all
 ```bash
 $ docker exec -ti mininet bash
 
-mininet> sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote,ip=172.20.0.2 --switch ovsk
+sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote,ip=172.20.0.2 --switch ovsk
 ```
 
 
@@ -35,9 +35,6 @@ mininet> pingall
 *** This could be sloooow
 
 
-# Dudas
-
-- Must each vtn have one or more vBridges?
-- Net created with mininet difers with the one provided in the statement
+# Questions
 
 
