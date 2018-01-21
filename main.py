@@ -52,7 +52,7 @@ def main():
 	odl.create_vInterface("if12", "vbr3", "triangle")
 	odl.create_vInterface("if13", "vbr3", "triangle")
 
-	odl.create_vtnPortMap("sw2-eth2", "openflow:2", "if1", "vbr3", "triangle")
+	odl.create_vtnPortMap("sw3-eth1", "openflow:3", "if1", "vbr3", "triangle")
 	odl.create_vtnPortMap("sw4-eth2", "openflow:4", "if2", "vbr3", "triangle")
 	odl.create_vtnPortMap("sw5-eth2", "openflow:5", "if3", "vbr3", "triangle")
 	odl.create_vtnPortMap("sw7-eth3", "openflow:7", "if4", "vbr3", "triangle")

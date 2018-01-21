@@ -24,10 +24,10 @@ class Anillo(Topo):
 				self.addLink(switchList[swnum], switchList[swnum-1], bw=1000, delay='3ms')
 			# Create lower aggregated ring
 			if swnum == 1:
-				self.create_trianglecustomer(switchList, swnum)
 				for swnum2 in range(n2):
 					self.create_switch(switchList2)
 					if swnum2 == 0:
+						self.create_trianglecustomer(switchList2, swnum2)
 						self.create_switch(access_switchList)
 						self.addLink(switchList2[swnum2], access_switchList[swnum2], bw=1000, delay='3ms')
 						self.create_trianglecustomer(access_switchList, swnum2)

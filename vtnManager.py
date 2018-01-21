@@ -86,3 +86,79 @@ class ODLClient(object):
             return response.json()
         except:
             return response.text
+    
+    def get_dataflow(self, vtnPortMap, node, vtnName, only_route=True, **params):
+        data = {"input":{"tenant-name": vtnName,
+                         "data-flow-port": {"port-name": vtnPortMap, "port-id": vtnPortMap[-1]},
+                         "node": node,
+                         "mode": "DETAIL",
+                         }}
+        path = "/operations/vtn-flow:get-data-flow"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(url, params=params, data=json.dumps(data), auth=self.auth,headers=headers)
+        try:
+            if only_route:
+                return response.json()['output']['data-flow-info'][0]['physical-route']
+            else:
+                return response.json()
+
+        except:
+            return response.text        
+
+
+    def set_flow_cond(self, cond, index, ipsource, ipdestination, **params):
+        data = {"input":{"operation":"SET",
+                         "present":"false",
+                         "name":cond, 
+                         "vtn-flow-match":[{"vtn-ether-match":{},
+                                            "vtn-inet-match":{"source-network":ipsource+"/32",
+                                                              "protocol":1,
+                                                              "destination-network":ipdestination+"/32"},
+                                                              "index":index}
+                                            ]
+                        }
+                }
+        path = "/operations/vtn-flow-condition:set-flow-condition"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(url, params=params, data=json.dumps(data), auth=self.auth,headers=headers)
+        try:
+            return response.json()
+        except:
+            return response.text
+
+    def set_path_map(self, cond, index, policy, vtnName, **params):
+        data = {"input":{"tenant-name": vtnName,
+                         "path-map-list":[{"condition":cond,
+                                           "policy":policy,
+                                           "index": index,
+                                           "idle-timeout":"300",
+                                           "hard-timeout":"0"}]}}
+        path = "/operations/vtn-path-map:set-path-map"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(url, params=params, data=json.dumps(data), auth=self.auth,headers=headers)
+        try:
+            return response.json()
+        except:
+            return response.text 
+
+    def set_path_policy(self, vtn_path_cost, policy,  default_cost=1,  **params):
+        data = {"input":{"operation":"SET",
+                         "id": policy,
+                         "default-cost": default_cost,
+                         "vtn-path-cost": []
+                        }
+                }
+        for element in vtn_path_cost:
+            data['input']['vtn-path-cost'].append({"port-desc":"openflow:"+element.split("-")[0].split("s")[1]+","+element[-1]+","+element,
+                                            "cost":vtn_path_cost[element]})
+        path = "/operations/vtn-path-policy:set-path-policy"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(url, params=params, data=json.dumps(data), auth=self.auth,headers=headers)
+        try:
+            return response.json()
+        except:
+            return response.text 
