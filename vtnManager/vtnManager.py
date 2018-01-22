@@ -87,7 +87,7 @@ class ODLClient(object):
         except:
             return response.text
     
-    def get_dataflow(self, vtnPortMap, node, vtnName, only_route=True, **params):
+    def get_dataflow(self, vtnPortMap, node, vtnName, **params):
         data = {"input":{"tenant-name": vtnName,
                          "data-flow-port": {"port-name": vtnPortMap, "port-id": vtnPortMap[-1]},
                          "node": node,
@@ -98,10 +98,7 @@ class ODLClient(object):
         headers = {'content-type': 'application/json'}
         response = requests.post(url, params=params, data=json.dumps(data), auth=self.auth,headers=headers)
         try:
-            if only_route:
-                return response.json()['output']['data-flow-info'][0]['physical-route']
-            else:
-                return response.json()
+            return response.json()['output']['data-flow-info']
 
         except:
             return response.text        
