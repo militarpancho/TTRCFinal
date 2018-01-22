@@ -66,7 +66,7 @@ def main():
 	odl.create_vtnPortMap("sw33-eth3", "openflow:33", "if12", "vbr3", "triangle")
 	odl.create_vtnPortMap("sw36-eth2", "openflow:36", "if13", "vbr3", "triangle")
         
-        print("VTNs created and configured")
+	print("VTNs created and configured")
         
 
 
