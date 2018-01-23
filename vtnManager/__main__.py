@@ -3,6 +3,9 @@ import pickle
 import logging
 import sys
 import os
+import logging
+
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
 def vtns():
@@ -143,6 +146,50 @@ def set_flow_conditions():
                               "10.0.0." + str(i), "10.0.0." + str(i + 12))
             odl.set_flow_cond("cond" + str(i + 151), str(i + 151),
                               "10.0.0." + str(i + 12), "10.0.0." + str(i))
+    print("Flow Conditions for triangle hosts established")
+
+    for i in range(4, 10):
+        odl.set_flow_cond("cond" + str(i + 159), str(i + 159),
+                          "10.0.0." + str(i), "10.0.0." + str(i + 1))
+        odl.set_flow_cond("cond" + str(i + 165), str(i + 165),
+                          "10.0.0." + str(i + 1), "10.0.0." + str(i))
+        if (i + 2) <= 11:
+            odl.set_flow_cond("cond" + str(i + 171), str(i + 171),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 177), str(i + 177),
+                              "10.0.0." + str(i + 2), "10.0.0." + str(i))
+        if (i + 3) <= 11:
+            odl.set_flow_cond("cond" + str(i + 183), str(i + 183),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 188), str(i + 188),
+                              "10.0.0." + str(i + 3), "10.0.0." + str(i))
+        if (i + 4) <= 11:
+            odl.set_flow_cond("cond" + str(i + 193), str(i + 193),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 197), str(i + 197),
+                              "10.0.0." + str(i + 4), "10.0.0." + str(i))
+        if (i + 5) <= 11:
+            odl.set_flow_cond("cond" + str(i + 201), str(i + 201),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 204), str(i + 204),
+                              "10.0.0." + str(i + 5), "10.0.0." + str(i))
+        if (i + 6) <= 11:
+            odl.set_flow_cond("cond" + str(i + 207), str(i + 207),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 209), str(i + 209),
+                              "10.0.0." + str(i + 6), "10.0.0." + str(i))
+        if (i + 6) <= 11:
+            odl.set_flow_cond("cond" + str(i + 211), str(i + 211),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 213), str(i + 213),
+                              "10.0.0." + str(i + 7), "10.0.0." + str(i))
+        if (i + 7) <= 11:
+            odl.set_flow_cond("cond" + str(i + 215), str(i + 215),
+                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
+            odl.set_flow_cond("cond" + str(i + 216), str(i + 216),
+                              "10.0.0." + str(i + 8), "10.0.0." + str(i))
+
+    print("Flow Conditions for square hosts established")
 
 
 def set_square_policy():
@@ -151,7 +198,8 @@ def set_square_policy():
     hexagon_traffic = pickle.load(open("trafficset_hexagon.p", "rb"))
     for element in set(hexagon_traffic):
         hex_traffic_policy[element.replace("sw", "s")] = "10"
-    odl.set_path_policy(hex_trafic_policy, "1", default_cost="1")
+    response = odl.set_path_policy(hex_traffic_policy, "1", default_cost="1")
+    logging.info(response)
 
 
 def set_triangle_policy():
@@ -175,31 +223,36 @@ def set_triangle_policy():
     for element in set(cost_5):
         square_traffic_policy[element.replace("sw", "s")] = "5"
 
-    odl.set_path_policy(square_traffic_policy, "2", default_cost="1")
+    response = odl.set_path_policy(
+        square_traffic_policy, "2", default_cost="1")
+    logging.info(response)
 
 
 def set_path_map():
     odl = ODLClient("http://localhost:8181")
-    print("Not implemented yet")
+    for i in range(11, 162):
+        response = odl.set_path_map("cond" + str(i), str(i), "2", "triangle")
+        logging.info(response)
 
 
 if __name__ == "__main__":
+    local_path = os.path.dirname(os.path.abspath(__file__))
     if sys.argv[1] == "create_vtns":
         vtns()
-    elif sys.argv[2] == "set_flow_conditions":
+    elif sys.argv[1] == "set_flow_conditions":
         set_flow_conditions()
-    elif sys.argv[3] == "set_path_policies":
-        if os.path.isfile("trafficset_hexagon"):
+    elif sys.argv[1] == "set_path_policies":
+        if os.path.isfile(local_path + "/trafficset_hexagon.p"):
             set_square_policy()
         else:
             print(
                 "Please, get traffics from hexagon vtn first using 'python traffics.py hexagon' during pingall hexagon hosts in mininet"
             )
-        if os.path.isfile("trafficset_square"):
+        if os.path.isfile(local_path + "/trafficset_square.p"):
             set_triangle_policy()
         else:
             print(
                 "Please, get traffics from square vtn first using 'python traffics.py square' during pingall square hosts in mininet"
             )
-    elif sys.argv[3] == "set_path_map":
+    elif sys.argv[1] == "set_path_map":
         set_path_map()
