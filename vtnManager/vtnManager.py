@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 import logging
 import json
@@ -152,7 +154,13 @@ class ODLClient(object):
         except:
             return response.text
 
-    def set_flow_cond(self, cond, index, ipsource, ipdestination, **params):
+    # No esta implementado el método de la forma más optima. Con una llamada a la API se podrían generar varias flow_conditions
+    def set_flow_cond(self,
+                      cond,
+                      index,
+                      ipsource,
+                      ipdestination=None,
+                      **params):
         data = {
             "input": {
                 "operation":
@@ -166,12 +174,15 @@ class ODLClient(object):
                     "vtn-inet-match": {
                         "source-network": ipsource + "/32",
                         "protocol": 1,
-                        "destination-network": ipdestination + "/32"
                     },
                     "index": index
                 }]
             }
         }
+        if ipdestination:
+            data["input"]["vtn-flow-match"][0]["vtn-inet-match"][
+                "destination-network"] = ipdestination + "/32"
+
         path = "/operations/vtn-flow-condition:set-flow-condition"
         url = '{}{}'.format(self.endpoint, path)
         headers = {'content-type': 'application/json'}
@@ -181,6 +192,39 @@ class ODLClient(object):
             data=json.dumps(data),
             auth=self.auth,
             headers=headers)
+        try:
+            return response.json()
+        except:
+            return response.text
+
+    def get_flow_cond(self, **params):
+        path = "/operational/vtn-flow-condition:vtn-flow-conditions/"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.get(
+            url, params=params, auth=self.auth, headers=headers)
+        try:
+            return response.json()
+        except:
+            return response.text
+
+    def get_path_policies(self, **params):
+        path = "/operational/vtn-path-policy:vtn-path-policies/"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.get(
+            url, params=params, auth=self.auth, headers=headers)
+        try:
+            return response.json()
+        except:
+            return response.text
+   
+    def get_path_maps(self, **params):
+        path = "/operational/vtn-path-map:global-path-maps/"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.get(
+            url, params=params, auth=self.auth, headers=headers)
         try:
             return response.json()
         except:

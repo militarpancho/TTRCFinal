@@ -86,110 +86,10 @@ def vtns():
 
 def set_flow_conditions():
     odl = ODLClient("http://localhost:8181")
-    for i in range(11, 23):
-        odl.set_flow_cond("cond" + str(i), str(i), "10.0.0." + str(i),
-                          "10.0.0." + str(i + 1))
-        odl.set_flow_cond("cond" + str(i + 12), str(i + 12),
-                          "10.0.0." + str(i + 1), "10.0.0." + str(i))
-        if (i + 2) <= 23:
-            odl.set_flow_cond("cond" + str(i + 24), str(i + 24),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 35), str(i + 35),
-                              "10.0.0." + str(i + 2), "10.0.0." + str(i))
-        if (i + 3) <= 23:
-            odl.set_flow_cond("cond" + str(i + 46), str(i + 46),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 3))
-            odl.set_flow_cond("cond" + str(i + 56), str(i + 56),
-                              "10.0.0." + str(i + 3), "10.0.0." + str(i))
-        if (i + 4) <= 23:
-            odl.set_flow_cond("cond" + str(i + 66), str(i + 66),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 4))
-            odl.set_flow_cond("cond" + str(i + 74), str(i + 74),
-                              "10.0.0." + str(i + 4), "10.0.0." + str(i))
-        if (i + 5) <= 23:
-            odl.set_flow_cond("cond" + str(i + 82), str(i + 82),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 5))
-            odl.set_flow_cond("cond" + str(i + 90), str(i + 90),
-                              "10.0.0." + str(i + 5), "10.0.0." + str(i))
-        if (i + 6) <= 23:
-            odl.set_flow_cond("cond" + str(i + 98), str(i + 98),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 6))
-            odl.set_flow_cond("cond" + str(i + 105), str(i + 105),
-                              "10.0.0." + str(i + 6), "10.0.0." + str(i))
-        if (i + 7) <= 23:
-            odl.set_flow_cond("cond" + str(i + 112), str(i + 112),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 7))
-            odl.set_flow_cond("cond" + str(i + 118), str(i + 118),
-                              "10.0.0." + str(i + 7), "10.0.0." + str(i))
-        if (i + 8) <= 23:
-            odl.set_flow_cond("cond" + str(i + 123), str(i + 123),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 8))
-            odl.set_flow_cond("cond" + str(i + 127), str(i + 127),
-                              "10.0.0." + str(i + 8), "10.0.0." + str(i))
-        if (i + 9) <= 23:
-            odl.set_flow_cond("cond" + str(i + 132), str(i + 132),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 9))
-            odl.set_flow_cond("cond" + str(i + 136), str(i + 136),
-                              "10.0.0." + str(i + 9), "10.0.0." + str(i))
-        if (i + 10) <= 23:
-            odl.set_flow_cond("cond" + str(i + 140), str(i + 140),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 10))
-            odl.set_flow_cond("cond" + str(i + 143), str(i + 143),
-                              "10.0.0." + str(i + 10), "10.0.0." + str(i))
-        if (i + 11) <= 23:
-            odl.set_flow_cond("cond" + str(i + 146), str(i + 146),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 11))
-            odl.set_flow_cond("cond" + str(i + 148), str(i + 148),
-                              "10.0.0." + str(i + 11), "10.0.0." + str(i))
-        if (i + 12) <= 23:
-            odl.set_flow_cond("cond" + str(i + 150), str(i + 150),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 12))
-            odl.set_flow_cond("cond" + str(i + 151), str(i + 151),
-                              "10.0.0." + str(i + 12), "10.0.0." + str(i))
-    print("Flow Conditions for triangle hosts established")
-
-    for i in range(4, 10):
-        odl.set_flow_cond("cond" + str(i + 159), str(i + 159),
-                          "10.0.0." + str(i), "10.0.0." + str(i + 1))
-        odl.set_flow_cond("cond" + str(i + 165), str(i + 165),
-                          "10.0.0." + str(i + 1), "10.0.0." + str(i))
-        if (i + 2) <= 11:
-            odl.set_flow_cond("cond" + str(i + 171), str(i + 171),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 177), str(i + 177),
-                              "10.0.0." + str(i + 2), "10.0.0." + str(i))
-        if (i + 3) <= 11:
-            odl.set_flow_cond("cond" + str(i + 183), str(i + 183),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 188), str(i + 188),
-                              "10.0.0." + str(i + 3), "10.0.0." + str(i))
-        if (i + 4) <= 11:
-            odl.set_flow_cond("cond" + str(i + 193), str(i + 193),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 197), str(i + 197),
-                              "10.0.0." + str(i + 4), "10.0.0." + str(i))
-        if (i + 5) <= 11:
-            odl.set_flow_cond("cond" + str(i + 201), str(i + 201),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 204), str(i + 204),
-                              "10.0.0." + str(i + 5), "10.0.0." + str(i))
-        if (i + 6) <= 11:
-            odl.set_flow_cond("cond" + str(i + 207), str(i + 207),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 209), str(i + 209),
-                              "10.0.0." + str(i + 6), "10.0.0." + str(i))
-        if (i + 6) <= 11:
-            odl.set_flow_cond("cond" + str(i + 211), str(i + 211),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 213), str(i + 213),
-                              "10.0.0." + str(i + 7), "10.0.0." + str(i))
-        if (i + 7) <= 11:
-            odl.set_flow_cond("cond" + str(i + 215), str(i + 215),
-                              "10.0.0." + str(i), "10.0.0." + str(i + 2))
-            odl.set_flow_cond("cond" + str(i + 216), str(i + 216),
-                              "10.0.0." + str(i + 8), "10.0.0." + str(i))
-
-    print("Flow Conditions for square hosts established")
+    for i in range(4, 24):
+        print("10.0.0." + str(i))
+        odl.set_flow_cond("cond" + str(i), str(i), "10.0.0." + str(i))
+    print("Flow Conditions for hosts established")
 
 
 def set_square_policy():
@@ -230,9 +130,15 @@ def set_triangle_policy():
 
 def set_path_map():
     odl = ODLClient("http://localhost:8181")
-    for i in range(11, 162):
-        response = odl.set_path_map("cond" + str(i), str(i), "2", "triangle")
-        logging.info(response)
+    for i in range(4, 11):
+        response = odl.set_path_map("cond"+str(i), str(i), "1", "square")
+        print(response)
+    print("Flow Conditions for square hosts established")
+
+    for i in range(11, 24):
+        response = odl.set_path_map("cond"+str(i), str(i), "2", "triangle")
+        print(response)
+    print("Flow Conditions for square hosts established")
 
 
 if __name__ == "__main__":
