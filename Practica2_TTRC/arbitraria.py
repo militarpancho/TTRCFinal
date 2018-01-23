@@ -142,7 +142,7 @@ class Anillo(Topo):
 		self.host_hexagon += 1
 
 	def create_switch(self, switchList):
-		switchList.append(self.addSwitch('sw%s' % (self.switch_number)))
+		switchList.append(self.addSwitch('s%s' % (self.switch_number)))
 		self.switch_number += 1
 
 topos = { 'anillo': (lambda: Anillo())}

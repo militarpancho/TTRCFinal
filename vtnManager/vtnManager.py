@@ -226,6 +226,25 @@ class ODLClient(object):
         except:
             return response.text
 
+    def remove_path_policy(self, policy, **params):
+        data = {
+            "input":{"id":policy}
+        }
+        path = "/operations/vtn-path-policy:remove-path-policy"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(
+            url,
+            params=params,
+            data=json.dumps(data),
+            auth=self.auth,
+            headers=headers)
+        try:
+            return response.json()['output']['data-flow-info']
+
+        except:
+            return response.text
+
     def get_path_policies(self, **params):
         path = "/operational/vtn-path-policy:vtn-path-policies/"
         url = '{}{}'.format(self.endpoint, path)

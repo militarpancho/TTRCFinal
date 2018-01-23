@@ -10,14 +10,14 @@ odl = ODLClient("http://localhost:8181")
 def get_traffic(vtn, traffic):
     ifaces = {
         "square": [
-            "sw7-eth2", "sw12-eth2", "sw17-eth2", "sw20-eth2", "sw31-eth2",
-            "sw33-eth2", "sw36-eth3"
+            "s7-eth2", "s12-eth2", "s17-eth2", "s20-eth2", "s31-eth2",
+            "s33-eth2", "s36-eth3"
         ],
-        "hexagon": ["sw8-eth2", "sw14-eth2", "sw27-eth2"]
+        "hexagon": ["s8-eth2", "s14-eth2", "s27-eth2"]
     }
     for iface in ifaces[vtn]:
         for dataflow in odl.get_dataflow(
-                iface, "openflow:" + iface.split("-")[0].split("sw")[1], vtn):
+                iface, "openflow:" + iface.split("-")[0].split("s")[1], vtn):
             for phy in dataflow['physical-route']:
                 traffic.append(phy['physical-egress-port']['port-name'])
                 traffic.append(phy['physical-ingress-port']['port-name'])
