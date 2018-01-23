@@ -197,7 +197,7 @@ class ODLClient(object):
         except:
             return response.text
 
-    def get_flow_cond(self, **params):
+    def get_flow_conds(self, **params):
         path = "/operational/vtn-flow-condition:vtn-flow-conditions/"
         url = '{}{}'.format(self.endpoint, path)
         headers = {'content-type': 'application/json'}
@@ -205,6 +205,24 @@ class ODLClient(object):
             url, params=params, auth=self.auth, headers=headers)
         try:
             return response.json()
+        except:
+            return response.text
+    def remove_flow_cond(self, condition, **params):
+        data = {
+            "input":{"name":condition}
+        }
+        path = "/operations/vtn-flow-condition:remove-flow-condition"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(
+            url,
+            params=params,
+            data=json.dumps(data),
+            auth=self.auth,
+            headers=headers)
+        try:
+            return response.json()['output']['data-flow-info']
+
         except:
             return response.text
 
@@ -219,8 +237,8 @@ class ODLClient(object):
         except:
             return response.text
    
-    def get_path_maps(self, **params):
-        path = "/operational/vtn-path-map:global-path-maps/"
+    def get_path_maps(self, tenant_name, **params):
+        path = "/operational/vtn:vtns/vtn/{}/vtn-path-maps/".format(tenant_name)
         url = '{}{}'.format(self.endpoint, path)
         headers = {'content-type': 'application/json'}
         response = requests.get(
