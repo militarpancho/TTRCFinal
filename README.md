@@ -26,11 +26,17 @@ sudo mn --mac --custom=arbitraria.py --topo anillo --link tc --controller remote
 #Run VTNs
 
 ```bash
-$ python main.py
+$ cd TTRCFinal
+$ python -m vtnManager create_vtns
+$ python -m vtnManager set_flow_conditions
+$ python -m vtnManager set_path_map
+$ python -m vtnManager set_path_policy
 ```
+# Get traffic data
+
 # Verificate creation
-```bash
-mininet> pingall
+```python
+odl.get_dataflow("s7-eth2", "openflow:7","square")
 ```
 *** This could be sloooow
 
