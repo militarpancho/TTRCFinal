@@ -1,4 +1,4 @@
-from vtnManager import ODLClient
+from .vtnManager import ODLClient
 import pickle
 import logging
 import sys
@@ -96,7 +96,7 @@ def set_square_policy():
     odl = ODLClient("http://localhost:8181")
     hex_traffic_policy = {}
     local_path = os.path.dirname(os.path.abspath(__file__))
-    hexagon_traffic = pickle.load(open(local_path+"trafficset_hexagon.p", "rb"))
+    hexagon_traffic = pickle.load(open(local_path+"/trafficset_hexagon.p", "rb"))
     for element in set(hexagon_traffic):
         hex_traffic_policy[element] = "10"
     response = odl.set_path_policy(hex_traffic_policy, "1", default_cost="1")
@@ -108,9 +108,9 @@ def set_triangle_policy():
     square_traffic_policy = {}
     local_path = os.path.dirname(os.path.abspath(__file__))
     hexagon_traffic = set(
-        pickle.load(open(local_path+"vtnManager/trafficset_hexagon.p", "rb")))
+        pickle.load(open(local_path+"/trafficset_hexagon.p", "rb")))
     square_traffic = set(
-        pickle.load(open(local_path+"vtnManager/trafficset_square.p", "rb")))
+        pickle.load(open(local_path+"/trafficset_square.p", "rb")))
 
     cost_15 = square_traffic & hexagon_traffic
     cost_10 = hexagon_traffic - square_traffic
