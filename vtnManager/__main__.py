@@ -179,3 +179,9 @@ if __name__ == "__main__":
             for element in odl.get_path_policies()["vtn-path-policies"]["vtn-path-policy"]:
                 odl.remove_path_policy(element["id"])
                 print(str(element["id"]) + " deleted")
+
+    elif sys.argv[1] == "get_dataflow_route":
+        odl = ODLClient("http://localhost:8181")
+        for route in odl.get_dataflow_route(sys.argv[2], sys.argv[3], sys.argv[4])[-1]["physical-route"]:
+            print(route["node"])
+

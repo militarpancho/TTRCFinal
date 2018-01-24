@@ -153,6 +153,32 @@ class ODLClient(object):
 
         except:
             return response.text
+    def get_dataflow_route(self, vtnPortMap, node, vtnName, **params):
+        data = {
+            "input": {
+                "tenant-name": vtnName,
+                "data-flow-port": {
+                    "port-name": vtnPortMap,
+                    "port-id": vtnPortMap[-1]
+                },
+                "node": node,
+                "mode": "DETAIL",
+            }
+        }
+        path = "/operations/vtn-flow:get-data-flow"
+        url = '{}{}'.format(self.endpoint, path)
+        headers = {'content-type': 'application/json'}
+        response = requests.post(
+            url,
+            params=params,
+            data=json.dumps(data),
+            auth=self.auth,
+            headers=headers)
+        try:
+            return response.json()['output']['data-flow-info']
+
+        except:
+            return response.text
 
     # No esta implementado el método de la forma más optima. Con una llamada a la API se podrían generar varias flow_conditions
     def set_flow_cond(self,
